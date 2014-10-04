@@ -1,16 +1,18 @@
+import java.math.*;
+
 public class Main {
 	/*
 	This class exists to test the implementation of the system.
 	*/
 
 	public static void main(String[] args) {
-		DatabaseSystem.addMenuItem(100, "Spaggetti", 14.95);
-		DatabaseSystem.addMenuItem(200, "Rump Steak", 25.95);
-		DatabaseSystem.addMenuItem(300, "Chicken", 17.50);
-		DatabaseSystem.addMenuItem(400, "Pork Belly", 28.70);
-		DatabaseSystem.addMenuItem(500, "Lamb Chops", 23.90);
-		DatabaseSystem.addMenuItem(501, "Lamb Ribs", 29.99);
-		DatabaseSystem.addMenuItem(600, "Ceaser Salad", 10.00);
+		DatabaseSystem.addMenuItem(100, "Spaggetti", "14.95");
+		DatabaseSystem.addMenuItem(200, "Rump Steak", "25.95");
+		DatabaseSystem.addMenuItem(300, "Chicken", "17.50");
+		DatabaseSystem.addMenuItem(400, "Pork Belly", "28.70");
+		DatabaseSystem.addMenuItem(500, "Lamb Chops", "23.90");
+		DatabaseSystem.addMenuItem(501, "Lamb Ribs", "29.99");
+		DatabaseSystem.addMenuItem(600, "Ceaser Salad", "10.00");
 
 		DatabaseSystem.addCustomer("Harry Potter", "444 839 384", "61 Harlinton Rd", "0000 3372 8983 2837");
 		DatabaseSystem.addCustomer("Neville Longbottom", "123 383 028", "62 Harlinton Rd", "1111 5323 2233 2131");
@@ -21,10 +23,19 @@ public class Main {
 		int harryID = DatabaseSystem.findCustomer("Harry Potter");
 		Customer cusHarry = DatabaseSystem.getCustomerWithID(harryID);
 		Order harryOrder1 = new Order(true); // order is takeway
+
+		BigDecimal harryCost = new BigDecimal(0.00);
+		harryCost.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
+		log("" + harryOrder1.calculateCost());
 		harryOrder1.addItem(100, 1);
+		log("" + harryOrder1.calculateCost());
 		harryOrder1.addItem(500, 2);
+		log("" + harryOrder1.calculateCost());
 		harryOrder1.addItem(600, 1);
+		log("" + harryOrder1.calculateCost());
 		harryOrder1.addItem(100, 1);
+		log("" + harryOrder1.calculateCost());
 		cusHarry.finishOrder(harryOrder1);
 
 		int somePersonID = DatabaseSystem.findCustomer("Some Person");
@@ -35,7 +46,12 @@ public class Main {
 		Order somePersonOrder = new Order(false);
 		somePersonOrder.addItem(100, 5);
 		somePersonOrder.addItem(500, 1);
+		// System.out.println(somePersonOrder.calculateCost());
 		cusSomePerson.finishOrder(somePersonOrder);
 
+	}
+
+	private static void log(String text) {
+		System.out.println(text);
 	}
 }

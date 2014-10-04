@@ -1,4 +1,5 @@
 import java.util.*;
+import java.math.*;
 
 public class Order {
 	private boolean takeAway;
@@ -14,6 +15,23 @@ public class Order {
 
 	public int getOrderID() {
 		return this.orderID;
+	}
+
+	public BigDecimal calculateCost() {
+		BigDecimal totalCost = new BigDecimal(0.00);
+		for (int i = 0; i < orderItems.size(); i++) {
+			Item item = orderItems.get(i);
+			BigDecimal itemCost  = DatabaseSystem.getMenuItemCost(item.getItemID());
+			int itemQuantity = item.getQuantity();
+			if (itemCost.doubleValue() < 0) {
+				return null;			//NOTE:		Not sure on best way to handle error. Might Require manual fix.
+			} else {
+				BigDecimal itemsCost = itemCost.multiply(new BigDecimal(itemQuantity));
+				totalCost = totalCost.add(itemsCost);
+			}
+		}
+		totalCost.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+		return totalCost;
 	}
 
 	public boolean addItem(int itemID, int quantity) {

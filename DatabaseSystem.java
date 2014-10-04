@@ -1,4 +1,5 @@
 import java.util.*;
+import java.math.*;
 
 public class DatabaseSystem {
 	private static int nextCusID = 1;
@@ -97,23 +98,23 @@ public class DatabaseSystem {
 		for (int i = 0; i < customers.size(); i++) {
 			Customer cus = customers.get(i);
 			if ((cus.getName().equalsIgnoreCase(name)) &&
-			 	 cus.getPhone().equalsIgnoreCase(phone)) {
+				cus.getPhone().equalsIgnoreCase(phone)) {
 				numberFound++;
-				lastID = cus.getCusID();
-			}
-		}
-		if (numberFound == 1) {
-			return lastID;
-		} else {
-			return numberFound;
+			lastID = cus.getCusID();
 		}
 	}
-
-	public static void addMenuItem(String name, double cost) {
-		MenuItem menuItem = new MenuItem(name, cost);
+	if (numberFound == 1) {
+		return lastID;
+	} else {
+		return numberFound;
 	}
+}
 
-	public static boolean addMenuItem(int menuItemID, String name, double cost) {
+public static void addMenuItem(String name, String cost) {
+	MenuItem menuItem = new MenuItem(name, cost);
+}
+
+public static boolean addMenuItem(int menuItemID, String name, String cost) {
 		/* 
 		returns true if item ID doesn't already exist and item added successfully
 		returns false if item ID already exists and item was not added.
@@ -145,13 +146,13 @@ public class DatabaseSystem {
 		return false;
 	}
 
-	public static double getMenuItemCost(int id) {
+	public static BigDecimal getMenuItemCost(int id) {
 		for (int i = 0; i < menuItems.size(); i++) {
 			MenuItem menuItem = menuItems.get(i);
 			if (id == menuItem.getMenuItemID()) {
 				return menuItem.getCost();
 			}
 		}
-		return -1.0;
+		return null;
 	}
 }

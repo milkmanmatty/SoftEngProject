@@ -1,25 +1,29 @@
+import java.math.*;
+
 public class MenuItem {
 	private String name;
-	private double cost;
+	private BigDecimal cost;
 	private int menuItemID;
 
-	public MenuItem(String name, double cost) {
+	public MenuItem(String name, String cost) {
 		this.menuItemID = DatabaseSystem.nextMenuItemID();
 		this.name = name;
-		this.cost = cost;
+		this.cost = new BigDecimal(cost);
+		this.cost = this.cost.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 	}
 
-	public MenuItem(int id, String name, double cost) {
+	public MenuItem(int id, String name, String cost) {
 		this.menuItemID = id;
 		this.name = name;
-		this.cost = cost;
+		this.cost = new BigDecimal(cost);
+		this.cost.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 	}
 
 	public int getMenuItemID() {
 		return this.menuItemID;
 	}
 
-	public double getCost() {
+	public BigDecimal getCost() {
 		return this.cost;
 	}
 }
