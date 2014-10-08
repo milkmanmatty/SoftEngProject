@@ -1,11 +1,37 @@
 import java.math.*;
 
+import javax.swing.JFrame;
+
 public class Main {
 	/*
 	This class exists to test the implementation of the system.
 	*/
 
-	public static void main(String[] args) {
+	/**
+	 * Creates a new instance of the <code>MainFrame</code> class named <code>jacko</code> and then calls upon <code>conclude</code>.
+	 * Also does basic Data Initialisation for the DatabaseSystem class.
+	 * @param args	standard initialisation parameter used by the JVM.
+	 * 
+	 * @see #setInitialData()
+	 * @see MainFrame#conclude(JFrame)
+	 */
+	public static void main(String args[]){		
+		//Initialize data
+		setInitialData();
+		
+		//Create new subclass object called jacko, because jacko's a mad baller
+		MainFrame jacko = new GUI();
+		
+		//Statically call the method conclude on jack. 
+		MainFrame.conclude(jacko.getCurrentFrame());
+	}
+
+	protected static void log(String text) {
+		System.out.println(text);
+	}
+	
+	
+	private static void setInitialData(){
 		DatabaseSystem.addMenuItem(100, "Spaggetti", "14.95");
 		DatabaseSystem.addMenuItem(200, "Rump Steak", "25.95");
 		DatabaseSystem.addMenuItem(300, "Chicken", "17.50");
@@ -48,10 +74,5 @@ public class Main {
 		somePersonOrder.addItem(500, 1);
 		// System.out.println(somePersonOrder.calculateCost());
 		cusSomePerson.finishOrder(somePersonOrder);
-
-	}
-
-	private static void log(String text) {
-		System.out.println(text);
 	}
 }
